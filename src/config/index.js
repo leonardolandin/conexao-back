@@ -26,4 +26,11 @@ if(process.env.CORS_ORIGINS) {
 //    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS']
 //}
 
+app.use(express.json);
+app.use(cors());
+
+
+//Auth
+app.use('/login', routes);
+
 module.exports = app;

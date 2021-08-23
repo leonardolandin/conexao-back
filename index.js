@@ -1,8 +1,14 @@
 const app = require('./src/config');
-const port = 8080
+const MongoDB = require('./src/database');
 require('dotenv');
 
-
-app.listen(port, () => {
-    
+app.listen(process.env.PORT , () => {
+    MongoDB.connect().then(db => {
+        if(db) {
+            process.on('SIGINT', function() {
+                MongoDB.disconnect();
+                process.exit(0);
+            });
+        }
+    })
 })
