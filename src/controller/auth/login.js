@@ -1,3 +1,14 @@
+const UserDAO = require('../../dao/UserDAO');
+
 module.exports = (req, res) => {
-    console.log(req)
+    let data = req.body;
+
+    console.log(data.email)
+    if(data) {
+        UserDAO.getUserByEmail(data.email).then(response => {
+            console.log(response)
+        })
+    }
+
+    res.send({onj: 'kkkkk'})
 }
