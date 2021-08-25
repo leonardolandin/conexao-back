@@ -10,6 +10,6 @@ const schema = new mongoDB.MongoDB.Schema({
     modificated: Date || null
 })
 
-const User = mongoDB.MongoDB.model('user', schema, 'user')
+const User = mongoDB.MongoDB.model('user', schema, 'users')
 
 module.exports = User
