@@ -1,6 +1,6 @@
 const mongoDB = require('../../database');
 
-const schema = new mongoDB.MongoDB.Schema({
+const dataSchema = new mongoDB.MongoDB.Schema({
     email: String,
     password: String,
     name: String,
@@ -9,7 +9,6 @@ const schema = new mongoDB.MongoDB.Schema({
     created: Date,
     modificated: Date || null
 })
-
-const User = mongoDB.MongoDB.model('user', schema, 'users')
+const User = mongoDB.MongoDB.model('user', dataSchema, 'users')
 
 module.exports = User
