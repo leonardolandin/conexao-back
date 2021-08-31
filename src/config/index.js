@@ -10,5 +10,6 @@ app.use('/', routes);
 
 //Auth
 app.use('/login', routes);
+app.use('/tokne', routes)
 
 module.exports = app;

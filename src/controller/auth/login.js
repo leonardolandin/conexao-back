@@ -9,7 +9,7 @@ module.exports = (req, res) => {
     if(data) {
         UserDAO.getUserByEmail(data.email).then((response) => {
             if(response && response._id) {
-                if(Crypt.getSHA256ofJSON(data.password) == response.password) {
+                if(Crypt.getSHA1ofJSON(data.password) == response.password) {
                     let token = JWT.sign({ email: data.email, id: response._id }, process.env.JWT, { expiresIn: "12h" })
 
                     res.status(Constants.STATUS_CODE.OK);
