@@ -7,7 +7,7 @@ const mongoDB = {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             bufferMaxEntries: 0
-        } , (err, db) => {
+        }, (err, db) => {
             if (err) {
               console.log(`> Erro ao conectar no MongoDB`);
             } else {
