@@ -7,5 +7,13 @@ module.exports = {
                 resolve(result)
             })
         })
+    },
+    createNewInfo: async (infoModel) => {
+        //console.log(infoModel)
+        return Info.insertMany(infoModel, (err, result) => {
+            return new Promise((resolve, reject) => {
+                resolve(result)
+            })
+        })
     }
 }

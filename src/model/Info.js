@@ -7,7 +7,10 @@ const dataSchema = new mongoDB.MongoDB.Schema({
         type: String,
         enum : ['ACCOMMODATION','QUADRICYCLE', 'BANANABOAT', 'BOAT', '4X4', 'RAPEL' ,'CAPITOLIO']
     },
-    image: Object,
+    image: {
+        path: String || null,
+        name: String || null
+    },
     active: Boolean,
     created: Date,
     modificated: Date || null
