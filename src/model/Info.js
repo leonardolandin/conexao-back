@@ -3,7 +3,7 @@ const mongoDB = require('../database');
 const dataSchema = new mongoDB.MongoDB.Schema({
     title: String,
     description: String,
-    typeAssignment: {
+    type: {
         type: String,
         enum : ['ACCOMMODATION','QUADRICYCLE', 'BANANABOAT', 'BOAT', '4X4', 'RAPEL' ,'CAPITOLIO']
     },

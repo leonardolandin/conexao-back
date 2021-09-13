@@ -10,6 +10,16 @@ module.exports = (req, res) => {
     let validate = InfoUtils.validateData(body);
 
     if(validate == true) {
+        let image = {};
+        let info = {
+            type: body.type,
+            active: true,
+            created: moment(new Date()).tz("America/Sao_Paulo").format('YYYY-MM-DDTHH:mm:ss'),
+            title: body.title,
+            description: body.description,
+            modificated: null
+        };
+
         if(body.image && body.image.path) {
             let imgurImage = {
                 image: InfoUtils.replaceBase64(body.image.path),
@@ -22,11 +32,13 @@ module.exports = (req, res) => {
             axios.post(Constants.IMGUR.UPLOAD_ENDPOINT, imgurImage, { headers: { 'Authorization': `Client-ID ${process.env.IMGUR_CLIENT_ID}` } }).then(response => {
                 if(response.data.success) {
                     let imgurResponse = response.data.data;
-                    body.image.path = imgurResponse.link;
-                    body.active = true;
-                    body.created = moment(new Date()).tz("America/Sao_Paulo").format('YYYY-MM-DDTHH:mm:ss');
-            
-                    InfoDAO.createNewInfo(body).then(data => {
+                    image = {
+                        path: imgurResponse.link,
+                        name: body.image.name
+                    }
+                    info.image = image
+
+                    InfoDAO.createNewInfo(info).then(data => {
                         let send = {
                             message: 'Informação criada com sucesso'
                         }
@@ -41,7 +53,19 @@ module.exports = (req, res) => {
                 console.log(error)
             })
         } else {
-            body.image = { path: null, name: null }
+            image = { path: null, name: null }
+            info.image = image
+
+            InfoDAO.createNewInfo(info).then(data => {
+                let send = {
+                    message: 'Informação criada com sucesso'
+                }
+    
+                res.status(Constants.STATUS_CODE.CREATED);
+                res.send(send);
+            }).catch(error => {
+                ValidationException("Ocorreu um erro ao criar informação", Constants.STATUS_CODE.INTERNAL_SERVER_ERROR, res)
+            })
         }
     } else {
         ValidationException(validate.error, Constants.STATUS_CODE.BAD_REQUEST, res);
