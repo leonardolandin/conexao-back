@@ -14,5 +14,6 @@ app.use('/token', routes)
 
 //Info
 app.use('/newInfo', routes);
+app.use('editInfo', routes);
 
 module.exports = app;

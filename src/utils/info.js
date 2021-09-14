@@ -19,5 +19,14 @@ module.exports = {
     },
     getMiMeTypeBase64: (base64) => {
         return base64.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0];
+    },
+    containsURL: (string) => {
+        if(string !== null) {
+            if(string.indexOf('https://') != -1 || string.indexOf('http://') != -1 || string.indexOf('.com') != -1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
